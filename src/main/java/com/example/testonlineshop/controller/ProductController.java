@@ -1,7 +1,7 @@
 package com.example.testonlineshop.controller;
 
 import com.example.testonlineshop.model.Products;
-import com.example.testonlineshop.service.ProductServiceImpl;
+import com.example.testonlineshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
-    public ProductServiceImpl productService;
+    public ProductService productService;
 
     @PostMapping
     public ResponseEntity<Products> save(@RequestBody Products products) {

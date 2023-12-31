@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceImpl {
+public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
-
+    @Override
     public Customers save(Customers customers) {
         return customerRepository.save(customers);
     }
 
+    @Override
     public Customers update(Customers customers) {
         Customers updateCustomer = customerRepository.findById(customers.getCustomerId()).orElseThrow(() -> new RuntimeException("not found person"));
         updateCustomer.setName(customers.getName());
@@ -24,6 +25,12 @@ public class CustomerServiceImpl {
         return customerRepository.save(updateCustomer);
     }
 
+    @Override
+    public void delete(Long customerId) {
+        customerRepository.delete(findById(customerId));
+    }
+
+    @Override
     public Customers findById(Long customerId) {
         return customerRepository.findById(customerId).orElseThrow(() -> new RuntimeException("not found person"));
     }

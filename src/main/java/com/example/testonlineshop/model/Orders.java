@@ -1,58 +1,29 @@
 package com.example.testonlineshop.model;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 public class Orders extends BaseEntity {
-    private Long orderId;
-    private Long customerId;
-    private Long productId;
-    @Column(nullable = false)
-    @NotNull
-    private String address;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<Products> productsSet = new HashSet<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId", nullable = true)
-    private Customers customers;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getOrderId() {
-        return orderId;
-    }
+    Long orderId;
+    Long customerId;
+    String address;
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerId", insertable = false, updatable = false)
+    private Customers customers;
 }
+
+// OrderDetails is <Redundency> in this entity but I hold it to have more relations and train DB more and more! :))
+// So OrederDetails can summary in <Orders> table

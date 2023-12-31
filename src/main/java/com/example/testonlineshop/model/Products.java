@@ -1,45 +1,30 @@
 package com.example.testonlineshop.model;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Data
+@FieldDefaults(level = AccessLevel.PUBLIC)
 @Entity
-public class Products {
-    private Long productId;
-    private String productName;
-    private BigDecimal price;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "productId", nullable = true)
-    private Orders order;
-
+public class Products extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getProductId() {
-        return productId;
-    }
+    @Column(name = "pr_Id")
+    Long productId;
+    String productName;
+    BigDecimal price;
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private OrderDetails orderDetails;
 
     @Override
     public int hashCode() {

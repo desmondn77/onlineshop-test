@@ -2,7 +2,7 @@ package com.example.testonlineshop.controller;
 
 import com.example.testonlineshop.model.Products;
 import com.example.testonlineshop.service.CartService;
-import com.example.testonlineshop.service.ProductServiceImpl;
+import com.example.testonlineshop.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class CartController {
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);
     private final CartService shoppingCartService;
-    private final ProductServiceImpl productService;
+    private final ProductService productService;
 
     @Autowired
-    public CartController(CartService shoppingCartService, ProductServiceImpl productService) {
+    public CartController(CartService shoppingCartService, ProductService productService) {
         this.shoppingCartService = shoppingCartService;
         this.productService = productService;
     }
@@ -65,3 +65,5 @@ public class CartController {
         return "redirect:/cart";
     }
 }
+
+// CartController with other relation service's (CartService) about : List of selected products to buy

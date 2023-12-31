@@ -1,70 +1,38 @@
 package com.example.testonlineshop.model;
 
+import com.example.testonlineshop.trigger.CustomerTriggers;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@FieldDefaults(level = AccessLevel.PUBLIC)
+@Data
 @Entity
-public class Customers {
-    @Column(name = "id", nullable = false)
-    private Long customerId;
-    @NotNull
-    private String name;
-    @NotNull
-    private String lastname;
-    private String city;
-    private String email;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.ALL)
-    private Set<Orders> ordersSet = new HashSet<>();
-
+public class Customers extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getCustomerId() {
-        return customerId;
-    }
+    //@Column(name = "id", nullable = false)
+    Long customerId;
+    @NotNull
+    String name;
+    @NotNull
+    String lastname;
+    String city;
+    String email;
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customerId")
+    private Set<Orders> ordersSet;
     @Override
     public int hashCode() {
-        return Objects.hash(customerId);
+       return Objects.hash(customerId);
     }
 }

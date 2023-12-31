@@ -2,32 +2,38 @@ package com.example.testonlineshop.service;
 
 import com.example.testonlineshop.model.Orders;
 import com.example.testonlineshop.model.Products;
-import com.example.testonlineshop.repository.OrederRepository;
+import com.example.testonlineshop.repository.OrderRepository;
+import com.example.testonlineshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
-public class OrderServiceImpl {
-    public Products product;
+public class OrderServiceImpl implements OrderService {
     @Autowired
-    private OrederRepository orederRepository;
-    private final Map<Products, Integer> cart = new LinkedHashMap<>();
+    private OrderRepository orderRepository;
+    //@Autowired
+    //private ProductRepository productRepository;
 
+    //private final Map<Products, Integer> cart = new LinkedHashMap<>();
+    @Override
     public Orders save(Orders orders) {
-        return orederRepository.save(orders);
+        return orderRepository.save(orders);
     }
 
+    @Override
     public Orders update(Orders orders) {
-        Orders updateOrders = orederRepository.findById(orders.getOrderId()).orElseThrow(() -> new RuntimeException("not found person"));
+        Orders updateOrders = orderRepository.findById(orders.getOrderId()).orElseThrow(() -> new RuntimeException("not found person"));
         updateOrders.setAddress(orders.getAddress());
-        return orederRepository.save(updateOrders);
+        return orderRepository.save(updateOrders);
     }
 
+    @Override
     public Orders findById(Long orderId) {
-        return orederRepository.findById(orderId).orElseThrow(() -> new RuntimeException("not found person"));
+        return orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException("not found person"));
     }
 
 }
