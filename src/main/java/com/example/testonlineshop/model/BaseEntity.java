@@ -1,13 +1,14 @@
 package com.example.testonlineshop.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Data;
-import lombok.extern.java.Log;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -29,7 +30,7 @@ public class BaseEntity {
     }
 
     @CreationTimestamp
-    @Column(updatable = false)
+    //@Column(updatable = false)
     public LocalDateTime getCreateionDate() {
         return createionDate;
     }

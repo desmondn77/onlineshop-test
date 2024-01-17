@@ -1,15 +1,11 @@
 package com.example.testonlineshop.model;
 
-import com.example.testonlineshop.trigger.CustomerTriggers;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,8 +27,9 @@ public class Customers extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
     private Set<Orders> ordersSet;
+
     @Override
     public int hashCode() {
-       return Objects.hash(customerId);
+        return Objects.hash(customerId);
     }
 }
